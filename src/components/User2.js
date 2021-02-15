@@ -14,7 +14,7 @@ class User1 extends Component {
         fetch('https://api.github.com/repositories/19438/issues')
         .then(response => response.json())
         .then(data => {
-          this.setState({plotData: data.map(info => info.number)})
+          this.setState({plotData: data.map(info => info.comments)})
         })
     }
 
@@ -25,6 +25,17 @@ class User1 extends Component {
               },
             title: {
               text: ''
+            },
+            plotOptions: {
+              series: {
+                  fillColor: {
+                      linearGradient: [0, 0, 0, 300],
+                      stops: [
+                          [0, Highcharts.getOptions().colors[0]],
+                          [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                      ]
+                  }
+              }
             },
             series: [{
               type: 'pie',
